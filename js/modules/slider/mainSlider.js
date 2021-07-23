@@ -1,11 +1,9 @@
-export default class Slider {
-    constructor(page, btns) {
-        this.page = document.querySelector(page)
-        this.slides = this.page.children
-        this.btns = document.querySelectorAll(btns)
-        this.slideIndex = 0
+import Slider from "./slider.js";
+export default class MainSlider extends Slider {
+    constructor(btns) {
+        super(btns)
     }
-
+    
     showSlides(n) {
         if (n > this.slides.length-1) {
             this.slideIndex = 0
@@ -24,7 +22,7 @@ export default class Slider {
                 this.hanson.classList.add('slideInUp')
             }, 2000)
         } else {
-            if(this.hanson && this.hanson.classList.contains('slideInUp')) this.hanson.classList.remove('slideInUp', 'animated')
+            if (this.hanson && this.hanson.classList.contains('slideInUp')) this.hanson.classList.remove('slideInUp', 'animated')
         }
     }
 
