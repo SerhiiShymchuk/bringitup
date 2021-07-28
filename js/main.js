@@ -2,6 +2,8 @@ import MainSlider from "./modules/slider/mainSlider.js";
 import MiniSlider from './modules/slider/miniSlider.js'
 import Difference from './modules/difference.js'
 import VideoPlayer from './modules/videoplayer.js'
+import Form from './modules/forms.js'
+
 window.addEventListener('DOMContentLoaded', () => {
     const slider = new MainSlider({container: '.page', btns: '.next'})
     slider.render()
@@ -37,4 +39,7 @@ window.addEventListener('DOMContentLoaded', () => {
     videoplayer.init()
 
     new Difference('.officerold', '.officernew', '.officer__card-item').init()
+
+    const form = new Form('.form')
+    form.init()
 })
