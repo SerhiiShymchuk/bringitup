@@ -5,17 +5,19 @@ export default class MiniSlider extends Slider {
         super(container, prev, next, activeClass, animate, autoplay)
     }
     init() {
-        this.container.style.cssText = `
-            display: flex;
-            flex-wrap: wrap;
-            align-items: flex-start;
-            overflow: hidden;
-        `;
-        this.bindTriggers()
-        this.decorizeSlider()
-        if (this.autoplay) {
-            setInterval(() => this.nextSlide(), 2000)
-        }
+        try {
+            this.container.style.cssText = `
+                display: flex;
+                flex-wrap: wrap;
+                align-items: flex-start;
+                overflow: hidden;
+            `;
+            this.bindTriggers()
+            this.decorizeSlider()
+            if (this.autoplay) {
+                setInterval(() => this.nextSlide(), 2000)
+            }
+        } catch (error) {}
     }
     bindTriggers() {
         this.prev.addEventListener('click', () => {
@@ -38,7 +40,7 @@ export default class MiniSlider extends Slider {
                 slide.querySelector('.card__controls-arrow').style.opacity = '0'
             }
         })
-        
+
         this.slides[0].classList.add(this.activeClass)
         if (this.animate) {
             this.slides[0].querySelector('.card__title').style.opacity = '1'
@@ -51,7 +53,7 @@ export default class MiniSlider extends Slider {
             this.container.appendChild(this.slides[1]); // Btn
             this.container.appendChild(this.slides[2]); // Btn
             this.decorizeSlider();
-        } else if (this.slides[1].tagName == "BUTTON"){
+        } else if (this.slides[1].tagName == "BUTTON") {
             this.container.appendChild(this.slides[0]); // Slide
             this.container.appendChild(this.slides[1]); // Btn
             this.decorizeSlider();

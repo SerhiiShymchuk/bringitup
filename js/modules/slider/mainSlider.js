@@ -3,24 +3,26 @@ export default class MainSlider extends Slider {
     constructor(btns) {
         super(btns)
     }
-    
+
     showSlides(n) {
-        if (n > this.slides.length-1) {
+        if (n > this.slides.length - 1) {
             this.slideIndex = 0
         }
         if (n < 0) {
-            this.slideIndex = this.slides.length-1
+            this.slideIndex = this.slides.length - 1
         }
         [...this.slides].forEach(slide => slide.style.display = 'none')
         this.slides[this.slideIndex].style.display = 'block'
         if (n === 2) {
             this.hanson = document.querySelector('.hanson')
-            this.hanson.style.opacity = '0'
-            this.hanson.classList.add('animated')
-            setTimeout(() => {
-                this.hanson.style.opacity = '1'
-                this.hanson.classList.add('slideInUp')
-            }, 2000)
+            if (this.hanson) {
+                this.hanson.style.opacity = '0'
+                this.hanson.classList.add('animated')
+                setTimeout(() => {
+                    this.hanson.style.opacity = '1'
+                    this.hanson.classList.add('slideInUp')
+                }, 2000)
+            }
         } else {
             if (this.hanson && this.hanson.classList.contains('slideInUp')) this.hanson.classList.remove('slideInUp', 'animated')
         }
@@ -31,15 +33,29 @@ export default class MainSlider extends Slider {
     }
 
     render() {
-        this.showSlides(this.slideIndex)
-        this.btns.forEach(item => {
-            item.addEventListener('click', () => this.plusSlides(1))
+        if (this.container) {
+            this.showSlides(this.slideIndex)
+            this.btns.forEach(item => {
+                item.addEventListener('click', () => this.plusSlides(1))
 
-            item.parentNode.previousElementSibling.addEventListener('click', (e) => {
-                e.preventDefault()
-                this.slideIndex = 0
-                this.showSlides(this.slideIndex)
+                item.parentNode.previousElementSibling.addEventListener('click', (e) => {
+                    e.preventDefault()
+                    this.slideIndex = 0
+                    this.showSlides(this.slideIndex)
+                })
             })
-        })
+
+            const flipSlide = (selector, n) => {
+                document.querySelectorAll(selector).forEach(item => {
+                    item.addEventListener('click', (e)=> {
+                        e.stopPropagation()
+                        e.preventDefault()
+                        this.plusSlides(n)
+                    })
+                })
+            }
+            flipSlide('.prevmodule', -1)
+            flipSlide('.nextmodule', 1)
+        }
     }
 }
