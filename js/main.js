@@ -4,6 +4,7 @@ import Difference from './modules/difference.js'
 import VideoPlayer from './modules/videoplayer.js'
 import Form from './modules/forms.js'
 import ShowInfo from './modules/showinfo.js'
+import Download from './modules/download.js'
 
 window.addEventListener('DOMContentLoaded', () => {
     const slider = new MainSlider({container: '.page', btns: '.next'})
@@ -47,4 +48,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const form = new Form('.form')
     form.init()
+
+    new Download('.download').init()
 })
